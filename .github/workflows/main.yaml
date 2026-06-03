@@ -6,7 +6,6 @@ on:
       - 'v*'
 
 env:
-  REGISTRY: ghcr.io
   IMAGE_NAME: sergeyitsib/avatar-generator
 
 jobs:
