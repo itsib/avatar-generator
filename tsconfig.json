@@ -9,9 +9,7 @@
     "moduleResolution": "bundler",
     "allowJs": true,
     "resolveJsonModule": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": true
   },
-  "include": [
-    "./src"
-  ]
+  "include": ["./src"]
 }

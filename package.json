@@ -1,24 +1,53 @@
 {
-  "name": "avatar-generator",
   "version": "0.0.3",
+  "name": "avatar-generator",
   "type": "module",
+  "license": "MIT",
+  "author": {
+    "email": "itsib.su@gmail.com",
+    "name": "Sergey Kraynow"
+  },
+  "private": false,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/itsib/avatar-generator.git"
+  },
+  "files": [
+    "dist"
+  ],
+  "eslintConfig": {
+    "env": {
+      "node": true
+    }
+  },
   "scripts": {
-    "start": "node ./dist/index.js",
-    "build": "node ./node_modules/.bin/tsc && cp -r ./public/ ./dist",
-    "dev": "node ./node_modules/.bin/nodemon"
+    "start": "node node_modules/.bin/nodemon",
+    "build": "node node_modules/.bin/tsc && cp -r ./public/ ./dist",
+    "lint": "eslint . && prettier --log-level warn --check .",
+    "lint:fix": "prettier --log-level warn --write . && eslint . --fix",
+    "preversion": "npm run lint",
+    "version": "node ./scripts/version.mjs && git add .",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "dotenv": "^17.2.3",
     "etag": "^1.8.1",
     "express": "^5.2.1",
     "http-errors": "^2.0.1",
-    "serve-favicon": "^2.5.1"
+    "serve-favicon": "^2.5.1",
+    "winston": "^3.19.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/etag": "^1.8.4",
     "@types/express": "^5.0.6",
+    "@types/node": "^25.9.1",
     "@types/serve-favicon": "^2.5.7",
+    "eslint": "^10.4.1",
+    "globals": "^17.6.0",
     "nodemon": "^3.1.14",
-    "typescript": "^5.9.3"
+    "prettier": "^3.8.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.60.1"
   }
 }

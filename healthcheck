@@ -1,6 +1,6 @@
 #!/bin/sh
 
-URI="http://${HOST}:${PORT}/healthz"
+URI="http://127.0.0.1:${PORT}/healthz"
 
 if [ "${SKIP_HEALTHCHECK}" != "true" ]; then
   wget --server-response --spider --quiet "$URI" 2>&1 | awk 'NR==1{print $2}' | grep 200 > /dev/null

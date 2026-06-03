@@ -2,6 +2,7 @@ services:
   avatar-generator:
     build:
       context: .
+      target: production
     ports:
       - '0.0.0.0:3022:3022'
     healthcheck:
