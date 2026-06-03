@@ -1,0 +1,11 @@
+services:
+  avatar-generator:
+    build:
+      context: .
+    ports:
+      - '0.0.0.0:3022:3022'
+    healthcheck:
+      test: ['CMD', 'healthcheck']
+      interval: 10s
+      timeout: 5s
+      retries: 2

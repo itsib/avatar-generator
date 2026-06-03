@@ -1,0 +1,19 @@
+{
+  "restartable": "rs",
+  "delay": 800,
+  "ignore": [
+    ".git",
+    "node_modules/**/node_modules"
+  ],
+  "verbose": false,
+  "exec": "npm run build && node ./dist/index.js",
+  "ext": "ts,json",
+  "watch": [
+    "src",
+    ".env"
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": "3022"
+  }
+}

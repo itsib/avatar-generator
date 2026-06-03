@@ -1,0 +1,24 @@
+{
+  "name": "avatar-generator",
+  "version": "0.0.3",
+  "type": "module",
+  "scripts": {
+    "start": "node ./dist/index.js",
+    "build": "node ./node_modules/.bin/tsc && cp -r ./public/ ./dist",
+    "dev": "node ./node_modules/.bin/nodemon"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "etag": "^1.8.1",
+    "express": "^5.2.1",
+    "http-errors": "^2.0.1",
+    "serve-favicon": "^2.5.1"
+  },
+  "devDependencies": {
+    "@types/etag": "^1.8.4",
+    "@types/express": "^5.0.6",
+    "@types/serve-favicon": "^2.5.7",
+    "nodemon": "^3.1.14",
+    "typescript": "^5.9.3"
+  }
+}
