@@ -1,4 +1,4 @@
-ARG VERSION=0.0.14
+ARG VERSION=0.0.15
 FROM node:slim AS builder
 
 COPY package.json \
