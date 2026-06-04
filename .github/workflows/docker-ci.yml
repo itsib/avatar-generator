@@ -1,36 +1,50 @@
 name: Build and Push Docker Image
 
-#on:
-#  push:
-#    branches:
-#      - main
-#  pull_request:
-
 on:
-  push:
-    tags:
-      - 'v*'
+  release:
+    types: [published]
 
 jobs:
   build:
     runs-on: ubuntu-latest
     environment: production
+    permissions:
+      packages: write
+      contents: read
+      attestations: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v6
-      - name: Extract Docker image metadata
-        id: meta
-        uses: docker/metadata-action@v6
+      - name: Log in to Docker Hub
+        uses: docker/login-action@f4ef78c080cd8ba55a85445d5b36e214a81df20a
         with:
-          images: ${{ vars.DOCKER_USERNAME }}/avatar-generator
+          username: ${{ vars.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+        with:
+          images: sergeyitsib/avatar-generator
       - name: Log in to Docker Hub
         uses: docker/login-action@v4
         with:
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Build and push Docker image
-        uses: docker/build-push-action@v7
+        id: push
+        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
-          push: ${{ github.event_name != 'pull_request' }}
+          context: .
+          file: ./Dockerfile
+          push: true
           tags: ${{ steps.meta.outputs.tags }}
-          annotations: ${{ steps.meta.outputs.annotations }}
+          labels: ${{ steps.meta.outputs.labels }}
+
+      - name: Generate artifact attestation
+        uses: actions/attest@v4
+        with:
+          subject-name: index.docker.io/sergeyitsib/avatar-generator
+          subject-digest: ${{ steps.push.outputs.digest }}
+          push-to-registry: true
